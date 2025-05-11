@@ -39,12 +39,17 @@ const btnLogout =document.querySelector(".logout-btn");
 const btnLogin=document.querySelector(".btn-login");
 //inputfields
 const inputLoginUsername = document.querySelector(".login-username")
-const inputLoginPin=querySelector.querySelector(".pin-input");
+const inputLoginPin=document.querySelector(".pin-input");
 const inputAccountNumber=document.getElementById("recipient");
 const inputSendAmount =document.getElementById("send-amount");
 const inputLoanAmount=document.getElementById("loan-amount")
 const inputUserBlockAcc=document.querySelector(".block-username");
 const inputPinBlockAcc=document.querySelector(".block-pin");
 
-
+//this fn will get an aray of accounts obj, and first it will ittrate over all the account obj and  create an array or all the part of owner's name using split then it will ittrate through that array and create an array of only first latter of owner's name using map finally it will join all the array elements into characters and convert them info lower case and assign a username to every account obj.
+const createUsename=function(accs){
+  accs.forEach(acc => {
+   acc.user= acc.owner.split(" ").map(element=>element[0]).join('').toLowerCase();
+  });
+}
 
