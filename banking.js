@@ -30,5 +30,13 @@ const labelWithdrawal=document.querySelector(".withdrawal");
 const labelDeposit=document.querySelector(".deposit");
 const labelSummaryDeposite=document.querySelector(".summary-deposite");
 const labelSummaryWithdrawal=document.querySelector(".summary-withdrawal");
+const labelTimeoutTimer=document.querySelector(".timeout-timer");
+//buttons
+const btnTransferFund=document.querySelector(".btn-transfer-fund");
+const btnRequestLoan=document.querySelector(".btn-request-loan");
+const btnBlockAccount=document.querySelector(".btn-block-account")
+const btnLogout =document.querySelector(".logout-btn");
+const btnLogin=document.querySelector(".btn-login")
+
 
 
