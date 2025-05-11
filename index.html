@@ -12,9 +12,15 @@
 <body>
     <div class="dashboard">
         <div class="header">
-            <h1>Nexus<span style="color: var(--primary-color)">Bank</span></h1>
-            <div class="card date" style="padding: 0.5rem 1rem;">May 11, 2025</div>
-        </div>
+  <h1>Nexus<span style="color: var(--primary-color)">Bank</span></h1>
+  <div style="display: flex; gap: 1rem;">
+    <div class="card date" style="padding: 0.5rem 1rem;">May 11, 2025</div>
+    <button class="card logout-btn" style="padding: 0.5rem 1rem; background: rgba(255, 0, 0, 0.2); border: none; border-radius: 10px; color: white; cursor: pointer;">
+      Logout
+    </button>
+  </div>
+</div>
+
 
         <div class="welcome-banner card">
             <h1 class="Welcome">Welcome, Qasim</h1>
@@ -38,7 +44,7 @@
                         <label for="send-amount">Amount</label>
                         <input type="number" id="send-amount" class="form-control" placeholder="0.00">
                     </div>
-                    <button type="submit" class="btn">Transfer Funds</button>
+                    <button type="submit" class="btn btn-transfer-fund">Transfer Funds</button>
                 </form>
             </div>
 
@@ -49,7 +55,7 @@
                         <label for="loan-amount">Loan Amount</label>
                         <input type="number" id="loan-amount" class="form-control" placeholder="0.00">
                     </div>
-                    <button type="submit" class="btn">Submit Request</button>
+                    <button type="submit" class="btn btn-request-loan">Submit Request</button>
                 </form>
             </div>
 
@@ -64,7 +70,7 @@
                         <label for="password">Password</label>
                         <input type="password" id="password" class="form-control" placeholder="••••••••">
                     </div>
-                    <button type="submit" class="btn btn-danger">Block Account</button>
+                    <button type="submit" class="btn btn-danger btn-block-account">Block Account</button>
                 </form>
             </div>
         </div>
@@ -109,18 +115,21 @@
                 </li>
             </ul>
         </div>
-
-        <div class="summary card">
-            <div class="summary-item total-deposits">
-                <h3>Total Deposits</h3>
-                <div class="amount summary-deposite">+$5,700.00</div>
-            </div>
-            <div class="summary-item total-withdrawals">
-                <h3>Total Withdrawals</h3>
-                <div class="amount summary-withdrawal">-$461.75</div>
-            </div>
-        </div>
+<div class="summary card">
+    <div class="summary-item total-deposits">
+        <h3>Total Deposits</h3>
+        <div class="amount summary-deposite">+$5,700.00</div>
     </div>
+    <div class="summary-item total-withdrawals">
+        <h3>Total Withdrawals</h3>
+        <div class="amount summary-withdrawal">-$461.75</div>
+    </div>
+    <div class="summary-item timeout-timer">
+        <h3>Session Timeout</h3>
+        <div class="amount timer-countdown"><span class="timeout-timer"id="timer">05:00</span></div>
+    </div>
+</div>
+
     <script src="banking.js"></script>
 </body>
 </html>
