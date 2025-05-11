@@ -36,7 +36,15 @@ const btnTransferFund=document.querySelector(".btn-transfer-fund");
 const btnRequestLoan=document.querySelector(".btn-request-loan");
 const btnBlockAccount=document.querySelector(".btn-block-account")
 const btnLogout =document.querySelector(".logout-btn");
-const btnLogin=document.querySelector(".btn-login")
+const btnLogin=document.querySelector(".btn-login");
+//inputfields
+const inputLoginUsername = document.querySelector(".login-username")
+const inputLoginPin=querySelector.querySelector(".pin-input");
+const inputAccountNumber=document.getElementById("recipient");
+const inputSendAmount =document.getElementById("send-amount");
+const inputLoanAmount=document.getElementById("loan-amount")
+const inputUserBlockAcc=document.querySelector(".block-username");
+const inputPinBlockAcc=document.querySelector(".block-pin");
 
 
 

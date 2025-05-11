@@ -1,0 +1,2 @@
+1: create multiple object of user including user's name, usernmae and pass, mvmnt arr. for now
+2:grab all the elemnts. 
