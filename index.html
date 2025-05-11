@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusBank | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>Nexus<span style="color: var(--primary-color)">Bank</span></h1>
+            <div class="card date" style="padding: 0.5rem 1rem;">May 11, 2025</div>
+        </div>
+
+        <div class="welcome-banner card">
+            <h1 class="Welcome">Welcome, Qasim</h1>
+            <p>Your financial dashboard with real-time insights</p>
+        </div>
+
+        <div class="balance-card card">
+            <h2>TOTAL ACCOUNT BALANCE</h2>
+            <div class="amount total-balance">$12,450.00</div>
+        </div>
+
+        <div class="action-grid">
+            <div class="action-card card">
+                <h3>Send Money</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="recipient">Account Number</label>
+                        <input type="text" id="recipient" class="form-control" placeholder="Enter account number">
+                    </div>
+                    <div class="form-group">
+                        <label for="send-amount">Amount</label>
+                        <input type="number" id="send-amount" class="form-control" placeholder="0.00">
+                    </div>
+                    <button type="submit" class="btn">Transfer Funds</button>
+                </form>
+            </div>
+
+            <div class="action-card card">
+                <h3>Request Loan</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="loan-amount">Loan Amount</label>
+                        <input type="number" id="loan-amount" class="form-control" placeholder="0.00">
+                    </div>
+                    <button type="submit" class="btn">Submit Request</button>
+                </form>
+            </div>
+
+            <div class="action-card card">
+                <h3>Block Account</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" class="form-control" placeholder="Your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-danger">Block Account</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="transactions card">
+            <h2>Recent Movements</h2>
+            <ul class="transaction-list">
+                <li class="transaction-item">
+                    <div class="transaction-details">
+                        <div>Salary Deposit</div>
+                        <div class="transaction-date">May 10, 2025 • 09:15 AM</div>
+                    </div>
+                    <div class="transaction-amount deposit">+$4,500.00</div>
+                </li>
+                <li class="transaction-item">
+                    <div class="transaction-details">
+                        <div>Grocery Store</div>
+                        <div class="transaction-date">May 8, 2025 • 04:32 PM</div>
+                    </div>
+                    <div class="transaction-amount withdrawal">-$128.75</div>
+                </li>
+                <li class="transaction-item">
+                    <div class="transaction-details">
+                        <div>Utility Bill Payment</div>
+                        <div class="transaction-date">May 5, 2025 • 11:45 AM</div>
+                    </div>
+                    <div class="transaction-amount withdrawal">-$245.60</div>
+                </li>
+                <li class="transaction-item">
+                    <div class="transaction-details">
+                        <div>Freelance Payment</div>
+                        <div class="transaction-date">May 3, 2025 • 02:15 PM</div>
+                    </div>
+                    <div class="transaction-amount deposit">+$1,200.00</div>
+                </li>
+                <li class="transaction-item">
+                    <div class="transaction-details">
+                        <div>Restaurant</div>
+                        <div class="transaction-date">May 1, 2025 • 07:30 PM</div>
+                    </div>
+                    <div class="transaction-amount withdrawal">-$87.40</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="summary card">
+            <div class="summary-item total-deposits">
+                <h3>Total Deposits</h3>
+                <div class="amount summary-deposite">+$5,700.00</div>
+            </div>
+            <div class="summary-item total-withdrawals">
+                <h3>Total Withdrawals</h3>
+                <div class="amount summary-withdrawal">-$461.75</div>
+            </div>
+        </div>
+    </div>
+    <script src="banking.js"></script>
+</body>
+</html>
