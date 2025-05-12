@@ -124,23 +124,23 @@ const createUsename=function(accs){
   });
 }
 createUsename(accounts);
-// const displayMovements=function(acc){
-//   movementsContainer.innerHTML="";
+const displayMovements=function(acc){
+  movementsContainer.innerHTML="";
  
-//  acc.movements.forEach((transaction, i) => {
-//   const disc= account1.descriptions;
-//   const type =transaction>0?"deposit":"withdrawal";
-//   let html=`<li class="transaction-item">
-//                     <div class="transaction-details">
-//                         <div>${disc[i]}</div>
-//                         <div class="transaction-date ">May 1, 2025 • 07:30 PM</div>
-//                     </div>
-//                     <div class="transaction-amount ${type}">-${transaction}</div>
-//                 </li>`
-//   movementsContainer.insertAdjacentHTML("afterbegin", html);
-//  });
-// }
-// displayMovements(account1);
+ acc.movements.forEach((transaction, i) => {
+  const disc= account1.descriptions;
+  const type =transaction>0?"deposit":"withdrawal";
+  let html=`<li class="transaction-item">
+                    <div class="transaction-details">
+                        <div>${disc[i]}</div>
+                        <div class="transaction-date ">May 1, 2025 • 07:30 PM</div>
+                    </div>
+                    <div class="transaction-amount ${type}">-${transaction}</div>
+                </li>`
+  movementsContainer.insertAdjacentHTML("afterbegin", html);
+ });
+}
+displayMovements(account1);
 // const Login = function(e){
 //   e.preventDefault();
 // const username =inputUserBlockAcc.value;
