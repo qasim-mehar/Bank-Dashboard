@@ -14,7 +14,7 @@ const account1 = {
   ],
   interestRate: 1.2,
   pin: 1111,
-  unpaidLoan: 0,
+  unpaidLoan: 1000,
   status: "Active"
 };
 
@@ -31,7 +31,7 @@ const account2 = {
   ],
   interestRate: 1.5,
   pin: 2222,
-  unpaidLoan: 0,
+  unpaidLoan: 1200,
    status: "Active"
 };
 
@@ -91,6 +91,7 @@ const labelTimeoutTimer=document.querySelector(".l");
 //buttons
 const btnTransferFund=document.querySelector(".btn-transfer-fund");
 const btnRequestLoan=document.querySelector(".btn-request-loan");
+const btnRepayLoan=document.querySelector(".btn-repay-loan")
 const btnBlockAccount=document.querySelector(".btn-block-account")
 const btnLogout =document.querySelector(".logout-btn");
 const btnLogin=document.querySelector(".btn-login");
@@ -102,7 +103,7 @@ const inputSendAmount =document.getElementById("send-amount");
 const inputLoanAmount=document.getElementById("loan-amount")
 const inputUserBlockAcc=document.querySelector(".block-username");
 const inputPinBlockAcc=document.querySelector(".block-pin");
-//
+const inputPayLoan=document.getElementById("repay-amount");
 const movementsContainer=document.getElementById("cont");
 
 
@@ -185,16 +186,16 @@ const transferFund=function(e){
 
 const requestLoan=function(e){
   e.preventDefault();
-  const amount=inputLoanAmount.value;
+  const amount=Number(inputLoanAmount.value);
   
   const positiveHisory=account1.movements.some(movs=>movs>0&&movs>(amount * 0.1));
   const positiveMovs=account1.movements.filter(movs=>movs>0).reduce((acc,cur)=>acc+cur);
-  const ammountLimit=amount<(5*positiveMovs);
+  const amountLimit=amount<(5*positiveMovs);
    
-  if (positiveHisory&&ammountLimit&& amount>0&& account1.unpaidLoan<=0) {
+  if (positiveHisory&&amountLimit&& amount>0&& account1.unpaidLoan<=0) {
     account1.movements.push(+amount);
     account1.descriptions.push("Loan");
-    account1.unpaidLoan=+ammountLimit;
+    account1.unpaidLoan=+amountLimit;
     displayMovements(account1);
    
   }else{
@@ -217,6 +218,21 @@ e.preventDefault();
   
 }
 
+const payDueAmount=function(e){
+  e.preventDefault();
+  const amount=Number(inputPayLoan.value);
+  if (amount>0&&account1.unpaidLoan>0 && account1.unpaidLoan>=amount ) {
+    account1.movements.push(-amount);
+    account1.descriptions.push("Pay Loan");
+    displayMovements(account1);
+    console.log('suc');
+  }
+  else{
+    console.log("fail")
+  }
+}
+
+btnRepayLoan.addEventListener("click", payDueAmount)
 btnRequestLoan.addEventListener("click", requestLoan)
 btnBlockAccount.addEventListener("click", blockAccount);
 btnTransferFund.addEventListener("click" , transferFund);
