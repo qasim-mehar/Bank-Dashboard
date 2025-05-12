@@ -153,13 +153,7 @@ const displayWellcomeMsg=function(acc){
 }
 displayWellcomeMsg(account1);
 
-const displayTransactionSummary=function(acc){
-  const TotalDiposit=acc.movements.filter(amount=>amount>0).reduce((acc,cur)=>acc+cur);
-  const TotalWithdrawal=acc.movements.filter(amount=>amount<0).reduce((acc,cur)=>acc+cur);
-  labelSummaryDeposite.textContent=TotalDiposit;
-  labelSummaryWithdrawal.textContent=TotalWithdrawal;
-}
-displayTransactionSummary(account1);
+
 // const Login = function(e){
 //   e.preventDefault();
 // const username =inputUserBlockAcc.value;
