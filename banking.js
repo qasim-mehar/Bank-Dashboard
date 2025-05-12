@@ -98,7 +98,7 @@ const labelWithdrawal=document.querySelector(".withdrawal");
 const labelDeposit=document.querySelector(".deposit");
 const labelSummaryDeposite=document.querySelector(".summary-deposite");
 const labelSummaryWithdrawal=document.querySelector(".summary-withdrawal");
-const labelTimeoutTimer=document.querySelector(".timeout-timer");
+const labelTimeoutTimer=document.querySelector(".l");
 //buttons
 const btnTransferFund=document.querySelector(".btn-transfer-fund");
 const btnRequestLoan=document.querySelector(".btn-request-loan");
@@ -161,6 +161,24 @@ const displayTransactionSummary=function(acc){
 }
 displayTransactionSummary(account1);
 
+const displayFormateTimout=function(seconds){
+  let min=String(Math.trunc(seconds/60)).padStart(2,0);
+  let sec=String((seconds%60)).padStart(2,0);
+  labelTimeoutTimer.textContent=`${min}:${sec}`;
+  
+}
+const calcTimout=function(){
+  let count =10;
+  const countdown= setInterval(()=>{
+    displayFormateTimout(count);
+    count--;
+    if (count<0) {
+      clearInterval(countdown);
+      window.location.href = "login.html";
+    }
+  },1000);
+}
+// calcTimout();
 // const Login = function(e){
 //   e.preventDefault();
 // const username =inputUserBlockAcc.value;
