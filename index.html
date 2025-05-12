@@ -32,48 +32,68 @@
             <div class="amount total-balance">$12,450.00</div>
         </div>
 
-        <div class="action-grid">
-            <div class="action-card card">
-                <h3>Send Money</h3>
-                <form>
-                    <div class="form-group">
-                        <label for="recipient">Account Username</label>
-                        <input type="text" id="recipient" class="form-control" placeholder="Enter account number">
-                    </div>
-                    <div class="form-group">
-                        <label for="send-amount">Amount</label>
-                        <input type="number" id="send-amount" class="form-control" placeholder="0.00">
-                    </div>
-                    <button type="submit" class="btn btn-transfer-fund">Transfer Funds</button>
-                </form>
-            </div>
+<div class="action-grid">
 
-            <div class="action-card card">
-                <h3>Request Loan</h3>
-                <form>
-                    <div class="form-group">
-                        <label for="loan-amount">Loan Amount</label>
-                        <input type="number" id="loan-amount" class="form-control" placeholder="0.00">
-                    </div>
-                    <button type="submit" class="btn btn-request-loan">Submit Request</button>
-                </form>
-            </div>
+  <!-- Send Money Card -->
+  <div class="action-card card">
+    <h3>Send Money</h3>
+    <form>
+      <div class="form-group">
+        <label for="recipient">Account Username</label>
+        <input type="text" id="recipient" class="form-control" placeholder="Enter account number">
+      </div>
+      <div class="form-group">
+        <label for="send-amount">Amount</label>
+        <input type="number" id="send-amount" class="form-control" placeholder="0.00">
+      </div>
+      <button type="submit" class="btn btn-transfer-fund">Transfer Funds</button>
+    </form>
+  </div>
+<div class="action-card card">
+  <h3>Loan Actions</h3>
 
-            <div class="action-card card">
-                <h3>Block Account</h3>
-                <form>
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="block-username form-control"id="username" class="form-control" placeholder="Your username">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="block-pin form-control" id="password" class="form-control" placeholder="••••••••">
-                    </div>
-                    <button type="submit" class="btn btn-danger btn-block-account">Block Account</button>
-                </form>
-            </div>
-        </div>
+  <!-- Request Loan Sub-card -->
+  <div class="card" style="margin-bottom: 20px; padding: 15px;">
+    <h4>Request Loan</h4>
+    <form>
+      <div class="form-group">
+        <label for="loan-amount">Loan Amount</label>
+        <input type="number" id="loan-amount" class="form-control" placeholder="0.00">
+      </div>
+      <button type="submit" class="btn btn-request-loan">Submit Request</button>
+    </form>
+  </div>
+
+  <!-- Repay Loan Sub-card -->
+  <div class="card" style="padding: 15px;">
+    <h4>Repay Loan</h4>
+    <form>
+      <div class="form-group">
+        <label for="repay-amount">Repayment Amount</label>
+        <input type="number" id="repay-amount" class="form-control" placeholder="0.00">
+      </div>
+      <button type="submit" class="btn btn-repay-loan">Repay Now</button>
+    </form>
+  </div>
+</div>
+
+  <!-- Block Account Card -->
+  <div class="action-card card">
+    <h3>Block Account</h3>
+    <form>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="block-username form-control" id="username" placeholder="Your username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="block-pin form-control" id="password" placeholder="••••••••">
+      </div>
+      <button type="submit" class="btn btn-danger btn-block-account">Block Account</button>
+    </form>
+  </div>
+
+</div>
 
         <div class="transactions card">
             <h2>Recent Movements</h2>

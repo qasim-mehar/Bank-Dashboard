@@ -14,7 +14,8 @@ const account1 = {
   ],
   interestRate: 1.2,
   pin: 1111,
-  unpaidLoan: 1200
+  unpaidLoan: 0,
+  status: "Active"
 };
 
 const account2 = {
@@ -30,7 +31,8 @@ const account2 = {
   ],
   interestRate: 1.5,
   pin: 2222,
-  unpaidLoan: 0
+  unpaidLoan: 0,
+   status: "Active"
 };
 
 const account3 = {
@@ -46,7 +48,8 @@ const account3 = {
   ],
   interestRate: 1.0,
   pin: 3333,
-  unpaidLoan: 800
+  unpaidLoan: 800,
+   status: "Active"
 };
 
 const account4 = {
@@ -69,6 +72,7 @@ const account4 = {
   interestRate: 0.9,
   pin: 4444,
   unpaidLoan: 400,
+   status: "Active"
 };
 
 const accounts = [account1, account2, account3, account4];
@@ -96,8 +100,8 @@ const inputLoginPin=document.querySelector(".pin-input");
 const inputAccountUsername=document.getElementById("recipient");
 const inputSendAmount =document.getElementById("send-amount");
 const inputLoanAmount=document.getElementById("loan-amount")
-const inputUserBlockAcc=document.getElementById("username");
-const inputPinBlockAcc=document.getElementById("pin");
+const inputUserBlockAcc=document.querySelector(".block-username");
+const inputPinBlockAcc=document.querySelector(".block-pin");
 //
 const movementsContainer=document.getElementById("cont");
 
@@ -171,7 +175,10 @@ const transferFund=function(e){
   const recipientAcc=accounts.find(acc=>acc.user==user);
   if(user!==account1.user && recipientAcc && amount>0 ){
     recipientAcc.movements.push(+amount);
+    recipientAcc.descriptions.push("Deposit");
+
     account1.movements.push(-amount);
+    account1.descriptions.push("Transfer funds");
     // renderUI(account1);
   }
 }
@@ -184,7 +191,7 @@ const requestLoan=function(e){
   const positiveMovs=account1.movements.filter(movs=>movs>0).reduce((acc,cur)=>acc+cur);
   const ammountLimit=amount<(5*positiveMovs);
    
-  if (positiveHisory&&ammountLimit&& amount>0&& account1.unpaidLoan<0) {
+  if (positiveHisory&&ammountLimit&& amount>0&& account1.unpaidLoan<=0) {
     account1.movements.push(+amount);
     account1.descriptions.push("Loan");
     account1.unpaidLoan=+ammountLimit;
@@ -195,9 +202,23 @@ const requestLoan=function(e){
   }
 }
 
+const blockAccount=function(e){
+e.preventDefault();
+  const user=inputUserBlockAcc.value;
+  const pin=Number(inputPinBlockAcc.value);
+  if(user==account1.user&&pin==account1.pin){
+    const index=accounts.findIndex(acc=>acc.user==user);
+    accounts.splice(index,1);
+    window.location.href="login.html"
+  }
+    else{
+      console.log("wrong credentials");
+    }
+  
+}
 
 btnRequestLoan.addEventListener("click", requestLoan)
-
+btnBlockAccount.addEventListener("click", blockAccount);
 btnTransferFund.addEventListener("click" , transferFund);
 // const Login = function(e){
 //   
