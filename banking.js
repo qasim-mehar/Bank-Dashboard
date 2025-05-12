@@ -90,7 +90,7 @@ const accounts = [account1, account2, account3, account4];
 
 
 //elements
-const labelWelcome = document.querySelector(".Welcome");
+const labelWelcome = document.querySelector(".owner");
 const lableTopDate=document.querySelector(".date");
 const lableTotalBalance = document.querySelector(".total-balance");
 const lableTransactionDate=document.querySelector(".transaction-date");
@@ -116,7 +116,7 @@ const inputPinBlockAcc=document.getElementById("pin");
 //
 const movementsContainer=document.getElementById("cont");
 
-console.log(movementsContainer);
+
 //this fn will get an aray of accounts obj, and first it will ittrate over all the account obj and  create an array or all the part of owner's name using split then it will ittrate through that array and create an array of only first latter of owner's name using map finally it will join all the array elements into characters and convert them info lower case and assign a username to every account obj.
 const createUsename=function(accs){
   accs.forEach(acc => {
@@ -141,6 +141,25 @@ const displayMovements=function(acc){
  });
 }
 displayMovements(account1);
+
+const displayTotalBalance=function(acc){
+  const total=acc.movements.reduce((cur , acc,)=>  cur+acc ,0)
+  lableTotalBalance.textContent=`₨ ${total}`;
+}
+displayTotalBalance(account1);
+
+const displayWellcomeMsg=function(acc){
+  labelWelcome.textContent=acc.owner.split(" ")[0];
+}
+displayWellcomeMsg(account1);
+
+const displayTransactionSummary=function(acc){
+  const TotalDiposit=acc.movements.filter(amount=>amount>0).reduce((acc,cur)=>acc+cur);
+  const TotalWithdrawal=acc.movements.filter(amount=>amount<0).reduce((acc,cur)=>acc+cur);
+  labelSummaryDeposite.textContent=TotalDiposit;
+  labelSummaryWithdrawal.textContent=TotalWithdrawal;
+}
+displayTransactionSummary(account1);
 // const Login = function(e){
 //   e.preventDefault();
 // const username =inputUserBlockAcc.value;
