@@ -108,7 +108,7 @@ const btnLogin=document.querySelector(".btn-login");
 //inputfields
 const inputLoginUsername = document.querySelector(".login-username")
 const inputLoginPin=document.querySelector(".pin-input");
-const inputAccountNumber=document.getElementById("recipient");
+const inputAccountUsername=document.getElementById("recipient");
 const inputSendAmount =document.getElementById("send-amount");
 const inputLoanAmount=document.getElementById("loan-amount")
 const inputUserBlockAcc=document.getElementById("username");
@@ -179,8 +179,19 @@ const calcTimout=function(){
   },1000);
 }
 // calcTimout();
+const transferFund=function(e){
+  e.preventDefault();
+  const amount=inputSendAmount.value;
+  const user=inputAccountUsername.value;
+  const recipientAcc=accounts.find(acc=>acc.user==user);
+  if(user!==account1.user && recipientAcc && amount>0 ){
+    recipientAcc.movements.push(+amount);
+    account1.movements.push(-amount);
+  }
+}
+btnTransferFund.addEventListener("click" , transferFund);
 // const Login = function(e){
-//   e.preventDefault();
+//   
 // const username =inputUserBlockAcc.value;
 // const pin =Number(inputPinBlockAcc.value);
 // currentLoginAcc=accounts.find(acc=>acc.user==username);
