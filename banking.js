@@ -3,14 +3,7 @@ let currentLoginAcc;
 const account1 = {
   owner: "Jonas Schmedtmann",
   movements: [200, 450, -400, 3000, -650, -130],
-  descriptions: [
-    "Groceries",
-    "Salary",
-    "Restaurant",
-    "Freelance",
-    "Rent",
-    "Electricity"
-  ],
+  descriptions: ["Groceries", "Salary", "Restaurant", "Freelance", "Rent", "Electricity"],
   dates: [
     "2025-05-01T10:24:00",
     "2025-05-03T14:15:00",
@@ -21,18 +14,13 @@ const account1 = {
   ],
   interestRate: 1.2,
   pin: 1111,
+  unpaidLoan: 1200
 };
 
 const account2 = {
   owner: "Sarah Johnson",
   movements: [5000, -1500, -200, 800, -50],
-  descriptions: [
-    "Salary",
-    "Rent",
-    "Utilities",
-    "Sold Items",
-    "Snacks"
-  ],
+  descriptions: ["Salary", "Rent", "Utilities", "Sold Items", "Snacks"],
   dates: [
     "2025-05-02T08:00:00",
     "2025-05-04T13:00:00",
@@ -42,18 +30,13 @@ const account2 = {
   ],
   interestRate: 1.5,
   pin: 2222,
+  unpaidLoan: 0
 };
 
 const account3 = {
   owner: "Ali Khan",
   movements: [1000, -100, -250, 400, -300],
-  descriptions: [
-    "Freelance",
-    "Lunch",
-    "Shopping",
-    "Gift",
-    "Online Course"
-  ],
+  descriptions: ["Freelance", "Lunch", "Shopping", "Gift", "Online Course"],
   dates: [
     "2025-05-01T11:00:00",
     "2025-05-03T14:30:00",
@@ -63,6 +46,7 @@ const account3 = {
   ],
   interestRate: 1.0,
   pin: 3333,
+  unpaidLoan: 800
 };
 
 const account4 = {
@@ -84,6 +68,7 @@ const account4 = {
   ],
   interestRate: 0.9,
   pin: 4444,
+  unpaidLoan: 400,
 };
 
 const accounts = [account1, account2, account3, account4];
@@ -135,7 +120,7 @@ const displayMovements=function(acc){
                         <div>${disc[i]}</div>
                         <div class="transaction-date ">May 1, 2025 • 07:30 PM</div>
                     </div>
-                    <div class="transaction-amount ${type}">-${transaction}</div>
+                    <div class="transaction-amount ${type}">${transaction}</div>
                 </li>`
   movementsContainer.insertAdjacentHTML("afterbegin", html);
  });
@@ -187,8 +172,32 @@ const transferFund=function(e){
   if(user!==account1.user && recipientAcc && amount>0 ){
     recipientAcc.movements.push(+amount);
     account1.movements.push(-amount);
+    // renderUI(account1);
   }
 }
+
+const requestLoan=function(e){
+  e.preventDefault();
+  const amount=inputLoanAmount.value;
+  
+  const positiveHisory=account1.movements.some(movs=>movs>0&&movs>(amount * 0.1));
+  const positiveMovs=account1.movements.filter(movs=>movs>0).reduce((acc,cur)=>acc+cur);
+  const ammountLimit=amount<(5*positiveMovs);
+   
+  if (positiveHisory&&ammountLimit&& amount>0&& account1.unpaidLoan<0) {
+    account1.movements.push(+amount);
+    account1.descriptions.push("Loan");
+    account1.unpaidLoan=+ammountLimit;
+    displayMovements(account1);
+   
+  }else{
+    console.log("failure")
+  }
+}
+
+
+btnRequestLoan.addEventListener("click", requestLoan)
+
 btnTransferFund.addEventListener("click" , transferFund);
 // const Login = function(e){
 //   
