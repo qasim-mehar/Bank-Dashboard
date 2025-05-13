@@ -118,10 +118,14 @@ const transferFund=function(e){
     recipientAcc.descriptions.push("Deposit");
 
     currentLoginAcc.movements.push(-amount);
-    currentLoginAcc.descriptions.push("Transfer funds");
+    // toastr.success("Funds tranfered!")
      saveAccounts();
     updateUI(currentLoginAcc);
     // renderUI(currentLoginAcc);
+  }
+  else{
+    // toastr.success("fail")
+    console.info("fail")
   }
 }
 
