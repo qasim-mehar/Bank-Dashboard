@@ -74,9 +74,7 @@ accounts.forEach(acc => {
    acc.user= acc.owner.split(" ").map(element=>element[0]).join('').toLowerCase();
 })
 
-accounts.forEach(acc=>{
-    acc.totalAmount=acc.movements.filter(amount=>amount>0).reduce((acu,cur)=>{cur+acu},0)
-});
+
 
 export const setCurrentAcc = (acc) => {
   localStorage.setItem("currentUser", JSON.stringify(acc));
@@ -116,3 +114,4 @@ export const showToast = (msg, type = "info") => {
     }
   }).showToast();
 };
+

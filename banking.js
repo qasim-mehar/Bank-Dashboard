@@ -4,7 +4,7 @@ import { accounts, setCurrentAcc, getCurrentAcc, loadAccounts, saveAccounts , sh
 // import 'toastr/build/toastr.min.css';
 loadAccounts(); // ✅ Important
 let currentLoginAcc = getCurrentAcc();
-
+let totalAmount;
 
 
 
@@ -46,8 +46,24 @@ function updateUI(acc){
   displayTotalBalance(acc);
   displayTransactionSummary(acc);
   displayWellcomeMsg(acc);
+  updateDashboardTime();
 
 }
+function updateDashboardTime() {
+  const now = new Date();
+  const options = {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  };
+  const formattedTime = now.toLocaleDateString('en-US', options);
+  document.getElementById("dashboard-date").textContent = formattedTime;
+  console.log(formattedTime);
+}
+
 function displayMovements(acc){
   movementsContainer.innerHTML="";
  
@@ -57,7 +73,7 @@ function displayMovements(acc){
   let html=`<li class="transaction-item">
                     <div class="transaction-details">
                         <div>${disc[i]}</div>
-                        <div class="transaction-date ">May 1, 2025 • 07:30 PM</div>
+                        <div class="transaction-date "></div>
                     </div>
                     <div class="transaction-amount ${type}">${transaction}</div>
                 </li>`
@@ -68,8 +84,8 @@ function displayMovements(acc){
 
 
 function displayTotalBalance(acc){
-  const total=acc.movements.reduce((cur , acc,)=>  cur+acc ,0)
-  lableTotalBalance.textContent=`₨ ${total}`;
+   totalAmount=acc.movements.reduce((cur , acc,)=>  cur+acc ,0)
+  lableTotalBalance.textContent=`₨ ${totalAmount}`;
 }
 // displayTotalBalance(account1);
 
@@ -95,6 +111,7 @@ function displayFormateTimout(seconds){
 function calcTimout() {
   let count =300;
   const countdown= setInterval(()=>{
+    updateDashboardTime();
     displayFormateTimout(count);
     count--;
     if (count<0) {
@@ -109,7 +126,7 @@ const transferFund=function(e){
   const amount=inputSendAmount.value;
   const user=inputAccountUsername.value;
   const recipientAcc=accounts.find(acc=>acc.user==user);
-  if(user!==currentLoginAcc.user && recipientAcc && amount>0&&amount>currentLoginAcc.totalAmount ){
+  if(user!==currentLoginAcc.user && recipientAcc && amount>0&&amount<totalAmount ){
     recipientAcc.movements.push(+amount);
     recipientAcc.descriptions.push(`Recieve from ${currentLoginAcc.owner}`);
     currentLoginAcc.movements.push(-amount);
