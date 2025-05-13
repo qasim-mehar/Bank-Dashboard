@@ -3,153 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusBank | Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-
+    <title>NexusBank | Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
     
+    <style>
+        :root {
+            --primary-color: #ff4d8d;
+            --secondary-color: #ff8fab;
+            --glass-color: rgba(255, 255, 255, 0.15);
+            --text-color: #2d2d2d;
+            --text-light: #f8f8f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff1f2 0%, #fecdd3 50%, #fbcfe8 100%);
+            min-height: 100vh;
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        /* Compact Glassmorphism Card */
+        .login-container {
+            width: 100%;
+            max-width: 360px;
+            background: var(--glass-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 6px 24px rgba(31, 38, 135, 0.1);
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .login-header p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 2px rgba(255, 77, 141, 0.15);
+        }
+
+        .pin-input {
+            letter-spacing: 0.4rem;
+            font-family: monospace;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .btn {
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(255, 77, 141, 0.25);
+        }
+
+        .forgot-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .bank-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .bank-logo span {
+            color: var(--primary-color);
+        }
+    </style>
 </head>
 <body>
-    <div class="dashboard">
-        <div class="header">
-  <h1>Nexus<span style="color: var(--primary-color)">Bank</span></h1>
-  <div style="display: flex; gap: 1rem;">
-    <div class="card date" style="padding: 0.5rem 1rem;">May 11, 2025</div>
-    <button class="card logout-btn" style="padding: 0.5rem 1rem; background: rgba(255, 0, 0, 0.2); border: none; border-radius: 10px; color: white; cursor: pointer;">
-      Logout
-    </button>
-  </div>
-</div>
-
-
-        <div class="welcome-banner card">
-            <h1  class="Welcome">Welcome, <span class="owner">Qasim</span> </h1>
-            <p>Your financial dashboard with real-time insights</p>
+    <div class="login-container">
+        <div class="bank-logo">
+            Nexus<span>Bank</span>
+        </div>
+        
+        <div class="login-header">
+            <h1>Secure Login</h1>
+            <p>Enter your credentials</p>
         </div>
 
-        <div class="balance-card card">
-            <h2>TOTAL ACCOUNT BALANCE</h2>
-            <div class="amount total-balance">$12,450.00</div>
-        </div>
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="form-control login-username" placeholder="username" required>
+            </div>
 
-<div class="action-grid">
+            <div class="form-group">
+                <label for="pin">4-Digit PIN</label>
+                <input type="password" id="pin" class="form-control pin-input" placeholder="••••" maxlength="4" required>
+            </div>
 
-  <!-- Send Money Card -->
-  <div class="action-card card">
-    <h3>Send Money</h3>
-    <form>
-      <div class="form-group">
-        <label for="recipient">Account Username</label>
-        <input type="text" id="recipient" class="form-control" placeholder="Enter account number">
-      </div>
-      <div class="form-group">
-        <label for="send-amount">Amount</label>
-        <input type="number" id="send-amount" class="form-control" placeholder="0.00">
-      </div>
-      <button type="submit" class="btn btn-transfer-fund">Transfer Funds</button>
-    </form>
-  </div>
-<div class="action-card card">
-  <h3>Loan Actions</h3>
+            <button type="submit" class="btn btn-login">Sign In</button>
 
-  <!-- Request Loan Sub-card -->
-  <div class="card" style="margin-bottom: 20px; padding: 15px;">
-    <h4>Request Loan</h4>
-    <form>
-      <div class="form-group">
-        <label for="loan-amount">Loan Amount</label>
-        <input type="number" id="loan-amount" class="form-control" placeholder="0.00">
-      </div>
-      <button type="submit" class="btn btn-request-loan">Submit Request</button>
-    </form>
-  </div>
-
-  <!-- Repay Loan Sub-card -->
-  <div class="card" style="padding: 15px;">
-    <h4>Repay Loan</h4>
-    <form>
-      <div class="form-group">
-        <label for="repay-amount">Repayment Amount</label>
-        <input type="number" id="repay-amount" class="form-control" placeholder="0.00">
-      </div>
-      <button type="submit" class="btn btn-repay-loan">Repay Now</button>
-    </form>
-  </div>
-</div>
-
-  <!-- Block Account Card -->
-  <div class="action-card card">
-    <h3>Block Account</h3>
-    <form>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="block-username form-control" id="username" placeholder="Your username">
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="block-pin form-control" id="password" placeholder="••••••••">
-      </div>
-      <button type="submit" class="btn btn-danger btn-block-account">Block Account</button>
-    </form>
-  </div>
-
-</div>
-
-        <div class="transactions card">
-            <h2>Recent Movements</h2>
-            <ul class="transaction-list" id="cont">
-                <!-- <li class="transaction-item">
-                    <div class="transaction-details">
-                        <div>Salary Deposit</div>
-                        <div class="transaction-date">May 10, 2025 • 09:15 AM</div>
-                    </div>
-                    <div class="transaction-amount deposit">+$4,500.00</div>
-                </li>
-                <li class="transaction-item">
-                    <div class="transaction-details">
-                        <div>Grocery Store</div>
-                        <div class="transaction-date">May 8, 2025 • 04:32 PM</div>
-                    </div>
-                    <div class="transaction-amount withdrawal">-$128.75</div>
-                </li>
-                <li class="transaction-item">
-                    <div class="transaction-details">
-                        <div>Utility Bill Payment</div>
-                        <div class="transaction-date">May 5, 2025 • 11:45 AM</div>
-                    </div>
-                    <div class="transaction-amount withdrawal">-$245.60</div>
-                </li>
-                <li class="transaction-item">
-                    <div class="transaction-details">
-                        <div>Freelance Payment</div>
-                        <div class="transaction-date">May 3, 2025 • 02:15 PM</div>
-                    </div>
-                    <div class="transaction-amount deposit">+$1,200.00</div>
-                </li>
-                <li class="transaction-item">
-                    <div class="transaction-details">
-                        <div>Restaurant</div>
-                        <div class="transaction-date">May 1, 2025 • 07:30 PM</div>
-                    </div>
-                    <div class="transaction-amount withdrawal">-$87.40</div>
-                </li> -->
-            </ul>
-        </div>
-<div class="summary card">
-    <div class="summary-item total-deposits">
-        <h3>Total Deposits</h3>
-        <div class="amount ">Rs <span class="summary-deposite"></span></div>
+            <a href="#" class="forgot-link">Forgot PIN?</a>
+        </form>
     </div>
-    <div class="summary-item total-withdrawals">
-        <h3>Total Withdrawals</h3>
-        </span><div class="amount "> Rs <span class="summary-withdrawal"></span></div>
-    </div>
-    <div class="summary-item timeout-timer">
-        <h3>Session Timeout</h3>
-        <div class="amount timer-countdown"><span class="timeout-timer l "id="timer">05:00</span></div>
-    </div>
-</div>
-
-    <script src="banking.js"></script>
+    <script type="module" src="login.js"></script>
 </body>
 </html>

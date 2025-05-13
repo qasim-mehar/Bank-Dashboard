@@ -1,81 +1,15 @@
 "strict mode"
-let currentLoginAcc;
-const account1 = {
-  owner: "Jonas Schmedtmann",
-  movements: [200, 450, -400, 3000, -650, -130],
-  descriptions: ["Groceries", "Salary", "Restaurant", "Freelance", "Rent", "Electricity"],
-  dates: [
-    "2025-05-01T10:24:00",
-    "2025-05-03T14:15:00",
-    "2025-05-05T19:45:00",
-    "2025-05-06T09:30:00",
-    "2025-05-08T12:00:00",
-    "2025-05-10T17:20:00"
-  ],
-  interestRate: 1.2,
-  pin: 1111,
-  unpaidLoan: 1000,
-  status: "Active"
-};
+import { accounts, setCurrentAcc, getCurrentAcc, loadAccounts, saveAccounts } from './Data.js';
+// import toastr from 'toastr';
+// import 'toastr/build/toastr.min.css';
+loadAccounts(); // ✅ Important
 
-const account2 = {
-  owner: "Sarah Johnson",
-  movements: [5000, -1500, -200, 800, -50],
-  descriptions: ["Salary", "Rent", "Utilities", "Sold Items", "Snacks"],
-  dates: [
-    "2025-05-02T08:00:00",
-    "2025-05-04T13:00:00",
-    "2025-05-05T15:45:00",
-    "2025-05-07T18:10:00",
-    "2025-05-10T20:05:00"
-  ],
-  interestRate: 1.5,
-  pin: 2222,
-  unpaidLoan: 1200,
-   status: "Active"
-};
 
-const account3 = {
-  owner: "Ali Khan",
-  movements: [1000, -100, -250, 400, -300],
-  descriptions: ["Freelance", "Lunch", "Shopping", "Gift", "Online Course"],
-  dates: [
-    "2025-05-01T11:00:00",
-    "2025-05-03T14:30:00",
-    "2025-05-04T16:15:00",
-    "2025-05-07T10:45:00",
-    "2025-05-09T21:10:00"
-  ],
-  interestRate: 1.0,
-  pin: 3333,
-  unpaidLoan: 800,
-   status: "Active"
-};
 
-const account4 = {
-  owner: "Emily Clark",
-  movements: [1200, -100, -500, 700, -80],
-  descriptions: [
-    "Bonus",
-    "Transport",
-    "Groceries",
-    "Part-time Job",
-    "Coffee"
-  ],
-  dates: [
-    "2025-05-02T12:10:00",
-    "2025-05-03T15:00:00",
-    "2025-05-06T18:20:00",
-    "2025-05-08T09:35:00",
-    "2025-05-10T22:00:00"
-  ],
-  interestRate: 0.9,
-  pin: 4444,
-  unpaidLoan: 400,
-   status: "Active"
-};
 
-const accounts = [account1, account2, account3, account4];
+let currentLoginAcc = getCurrentAcc();
+
+
 
 
 //elements
@@ -93,8 +27,7 @@ const btnTransferFund=document.querySelector(".btn-transfer-fund");
 const btnRequestLoan=document.querySelector(".btn-request-loan");
 const btnRepayLoan=document.querySelector(".btn-repay-loan")
 const btnBlockAccount=document.querySelector(".btn-block-account")
-const btnLogout =document.querySelector(".logout-btn");
-const btnLogin=document.querySelector(".btn-login");
+const btnLogout=document.querySelector(".logout-btn")
 //inputfields
 const inputLoginUsername = document.querySelector(".login-username")
 const inputLoginPin=document.querySelector(".pin-input");
@@ -104,21 +37,26 @@ const inputLoanAmount=document.getElementById("loan-amount")
 const inputUserBlockAcc=document.querySelector(".block-username");
 const inputPinBlockAcc=document.querySelector(".block-pin");
 const inputPayLoan=document.getElementById("repay-amount");
-const movementsContainer=document.getElementById("cont");
-
-
-//this fn will get an aray of accounts obj, and first it will ittrate over all the account obj and  create an array or all the part of owner's name using split then it will ittrate through that array and create an array of only first latter of owner's name using map finally it will join all the array elements into characters and convert them info lower case and assign a username to every account obj.
-const createUsename=function(accs){
-  accs.forEach(acc => {
-   acc.user= acc.owner.split(" ").map(element=>element[0]).join('').toLowerCase();
-  });
+const movementsContainer=document.querySelector(".transaction-list");
+if (!currentLoginAcc) {
+  window.location.href = "index.html";
+} else {
+  updateUI(currentLoginAcc);
 }
-createUsename(accounts);
-const displayMovements=function(acc){
+
+function updateUI(acc){
+  calcTimout();
+  displayMovements(acc);
+  displayTotalBalance(acc);
+  displayTransactionSummary(acc);
+  displayWellcomeMsg(acc);
+
+}
+function displayMovements(acc){
   movementsContainer.innerHTML="";
  
  acc.movements.forEach((transaction, i) => {
-  const disc= account1.descriptions;
+  const disc= acc.descriptions;
   const type =transaction>0?"deposit":"withdrawal";
   let html=`<li class="transaction-item">
                     <div class="transaction-details">
@@ -128,43 +66,44 @@ const displayMovements=function(acc){
                     <div class="transaction-amount ${type}">${transaction}</div>
                 </li>`
   movementsContainer.insertAdjacentHTML("afterbegin", html);
+  
  });
 }
-displayMovements(account1);
 
-const displayTotalBalance=function(acc){
+
+function displayTotalBalance(acc){
   const total=acc.movements.reduce((cur , acc,)=>  cur+acc ,0)
   lableTotalBalance.textContent=`₨ ${total}`;
 }
-displayTotalBalance(account1);
+// displayTotalBalance(account1);
 
-const displayWellcomeMsg=function(acc){
+function displayWellcomeMsg(acc){
   labelWelcome.textContent=acc.owner.split(" ")[0];
 }
-displayWellcomeMsg(account1);
+// displayWellcomeMsg(account1);
 
-const displayTransactionSummary=function(acc){
+function displayTransactionSummary(acc){
   const TotalDiposit=acc.movements.filter(amount=>amount>0).reduce((acc,cur)=>acc+cur);
   const TotalWithdrawal=acc.movements.filter(amount=>amount<0).reduce((acc,cur)=>acc+cur);
   labelSummaryDeposite.textContent=TotalDiposit;
   labelSummaryWithdrawal.textContent=TotalWithdrawal;
 }
-displayTransactionSummary(account1);
+// displayTransactionSummary(account1);
 
-const displayFormateTimout=function(seconds){
+function displayFormateTimout(seconds){
   let min=String(Math.trunc(seconds/60)).padStart(2,0);
   let sec=String((seconds%60)).padStart(2,0);
   labelTimeoutTimer.textContent=`${min}:${sec}`;
   
 }
-const calcTimout=function(){
-  let count =10;
+function calcTimout() {
+  let count =300;
   const countdown= setInterval(()=>{
     displayFormateTimout(count);
     count--;
     if (count<0) {
       clearInterval(countdown);
-      window.location.href = "login.html";
+      window.location.href = "index.html";
     }
   },1000);
 }
@@ -174,13 +113,15 @@ const transferFund=function(e){
   const amount=inputSendAmount.value;
   const user=inputAccountUsername.value;
   const recipientAcc=accounts.find(acc=>acc.user==user);
-  if(user!==account1.user && recipientAcc && amount>0 ){
+  if(user!==currentLoginAcc.user && recipientAcc && amount>0 ){
     recipientAcc.movements.push(+amount);
     recipientAcc.descriptions.push("Deposit");
 
-    account1.movements.push(-amount);
-    account1.descriptions.push("Transfer funds");
-    // renderUI(account1);
+    currentLoginAcc.movements.push(-amount);
+    currentLoginAcc.descriptions.push("Transfer funds");
+     saveAccounts();
+    updateUI(currentLoginAcc);
+    // renderUI(currentLoginAcc);
   }
 }
 
@@ -188,15 +129,16 @@ const requestLoan=function(e){
   e.preventDefault();
   const amount=Number(inputLoanAmount.value);
   
-  const positiveHisory=account1.movements.some(movs=>movs>0&&movs>(amount * 0.1));
-  const positiveMovs=account1.movements.filter(movs=>movs>0).reduce((acc,cur)=>acc+cur);
+  const positiveHisory=currentLoginAcc.movements.some(movs=>movs>0&&movs>(amount * 0.1));
+  const positiveMovs=currentLoginAcc.movements.filter(movs=>movs>0).reduce((acc,cur)=>acc+cur);
   const amountLimit=amount<(5*positiveMovs);
    
-  if (positiveHisory&&amountLimit&& amount>0&& account1.unpaidLoan<=0) {
-    account1.movements.push(+amount);
-    account1.descriptions.push("Loan");
-    account1.unpaidLoan=+amountLimit;
-    displayMovements(account1);
+  if (positiveHisory&&amountLimit&& amount>0&& currentLoginAcc.unpaidLoan<=0) {
+    currentLoginAcc.movements.push(+amount);
+    currentLoginAcc.descriptions.push("Loan");
+    currentLoginAcc.unpaidLoan=+amountLimit;
+    saveAccounts();
+    updateUI(currentLoginAcc);
    
   }else{
     console.log("failure")
@@ -207,10 +149,11 @@ const blockAccount=function(e){
 e.preventDefault();
   const user=inputUserBlockAcc.value;
   const pin=Number(inputPinBlockAcc.value);
-  if(user==account1.user&&pin==account1.pin){
+  if(user==currentLoginAcc.user&&pin==currentLoginAcc.pin){
     const index=accounts.findIndex(acc=>acc.user==user);
     accounts.splice(index,1);
-    window.location.href="login.html"
+     saveAccounts();
+    window.location.href="index.html"
   }
     else{
       console.log("wrong credentials");
@@ -221,38 +164,35 @@ e.preventDefault();
 const payDueAmount=function(e){
   e.preventDefault();
   const amount=Number(inputPayLoan.value);
-  if (amount>0&&account1.unpaidLoan>0 && account1.unpaidLoan>=amount ) {
-    account1.movements.push(-amount);
-    account1.descriptions.push("Pay Loan");
-    displayMovements(account1);
-    console.log('suc');
+  if (amount>0&&currentLoginAcc.unpaidLoan>0 && currentLoginAcc.unpaidLoan>=amount ) {
+    currentLoginAcc.movements.push(-amount);
+    currentLoginAcc.descriptions.push("Pay Loan");
+     saveAccounts();
+    updateUI(currentLoginAcc);
+    
   }
   else{
     console.log("fail")
   }
 }
+const logout=function(e){
+  e.preventDefault();
+  localStorage.removeItem("currentUser");
+   saveAccounts();
+ window.location.href = "index.html";
 
+}
 btnRepayLoan.addEventListener("click", payDueAmount)
 btnRequestLoan.addEventListener("click", requestLoan)
 btnBlockAccount.addEventListener("click", blockAccount);
 btnTransferFund.addEventListener("click" , transferFund);
-// const Login = function(e){
-//   
-// const username =inputUserBlockAcc.value;
-// const pin =Number(inputPinBlockAcc.value);
-// currentLoginAcc=accounts.find(acc=>acc.user==username);
+btnLogout.addEventListener("click", logout);
 
-// if ( currentLoginAcc.pin===pin) {
-//   console.log("login succefully")
-//   window.location.href = "index.html";
-// }else{
-  
-//   console.log("Wrong credentials");
-// }
-// }
+
+window.addEventListener("beforeunload", () => {
+  saveAccounts();
+});
 
 
 
-
-// btnLogin.addEventListener("click", Login);
 
