@@ -1,6 +1,6 @@
 "use strict";
 
-import { accounts,loadAccounts } from "./Data.js";
+import { accounts,loadAccounts, showToast } from "./Data.js";
 loadAccounts();
 
 // Buttons & Inputs
@@ -18,8 +18,12 @@ const login = function (e) {
   const currentLoginAcc = accounts.find(acc => acc.user === user && acc.pin === pin);
 
  if (currentLoginAcc) {
+  showToast(`Wellcome, ${currentLoginAcc.owner.split(" ")[0]}`)
   localStorage.setItem("currentUser", currentLoginAcc.user); // save username
-  window.location.href = "BankDashboard.html";
+  
+  setInterval(() => {
+    window.location.href = "BankDashboard.html";
+  }, 500);
 }
 else {
     alert("Wrong Credentials");

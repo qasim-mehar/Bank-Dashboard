@@ -1,12 +1,8 @@
 "strict mode"
-import { accounts, setCurrentAcc, getCurrentAcc, loadAccounts, saveAccounts } from './Data.js';
+import { accounts, setCurrentAcc, getCurrentAcc, loadAccounts, saveAccounts , showToast} from './Data.js';
 // import toastr from 'toastr';
 // import 'toastr/build/toastr.min.css';
 loadAccounts(); // ✅ Important
-
-
-
-
 let currentLoginAcc = getCurrentAcc();
 
 
@@ -113,19 +109,21 @@ const transferFund=function(e){
   const amount=inputSendAmount.value;
   const user=inputAccountUsername.value;
   const recipientAcc=accounts.find(acc=>acc.user==user);
-  if(user!==currentLoginAcc.user && recipientAcc && amount>0 ){
+  if(user!==currentLoginAcc.user && recipientAcc && amount>0&&amount>currentLoginAcc.totalAmount ){
     recipientAcc.movements.push(+amount);
-    recipientAcc.descriptions.push("Deposit");
-
+    recipientAcc.descriptions.push(`Recieve from ${currentLoginAcc.owner}`);
     currentLoginAcc.movements.push(-amount);
-    // toastr.success("Funds tranfered!")
+    currentLoginAcc.descriptions.push(`Transfer to ${recipientAcc.owner}`)
+    showToast("Funds tranfered!")
      saveAccounts();
+    
+    setCurrentAcc(currentLoginAcc);
     updateUI(currentLoginAcc);
+
     // renderUI(currentLoginAcc);
   }
   else{
-    // toastr.success("fail")
-    console.info("fail")
+    showToast("Transfer failed! Invalid input or insufficient balance.", "error");
   }
 }
 
@@ -141,11 +139,12 @@ const requestLoan=function(e){
     currentLoginAcc.movements.push(+amount);
     currentLoginAcc.descriptions.push("Loan");
     currentLoginAcc.unpaidLoan=+amountLimit;
+    showToast("Loan approved!", "success");
     saveAccounts();
     updateUI(currentLoginAcc);
    
   }else{
-    console.log("failure")
+    showToast("Loan denied. Check eligibility or unpaid loans.", "error");
   }
 }
 
@@ -156,11 +155,12 @@ e.preventDefault();
   if(user==currentLoginAcc.user&&pin==currentLoginAcc.pin){
     const index=accounts.findIndex(acc=>acc.user==user);
     accounts.splice(index,1);
+     showToast("Account blocked successfully!", "success");
      saveAccounts();
     window.location.href="index.html"
   }
     else{
-      console.log("wrong credentials");
+       showToast("Incorrect username or pin.", "error");
     }
   
 }
@@ -171,16 +171,18 @@ const payDueAmount=function(e){
   if (amount>0&&currentLoginAcc.unpaidLoan>0 && currentLoginAcc.unpaidLoan>=amount ) {
     currentLoginAcc.movements.push(-amount);
     currentLoginAcc.descriptions.push("Pay Loan");
+    showToast("Loan repayment successful!", "success");
      saveAccounts();
     updateUI(currentLoginAcc);
     
   }
   else{
-    console.log("fail")
+    showToast("Repayment failed. Check loan amount or balance.", "error");
   }
 }
 const logout=function(e){
   e.preventDefault();
+  showToast("Logged out", "info");
   localStorage.removeItem("currentUser");
    saveAccounts();
  window.location.href = "index.html";

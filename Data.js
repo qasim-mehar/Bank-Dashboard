@@ -69,10 +69,14 @@ export const accounts = [
 ]
 //this fn will get an aray of accounts obj, and first it will ittrate over all the account obj and  create an array or all the part of owner's name using split then it will ittrate through that array and create an array of only first latter of owner's name using map finally it will join all the array elements into characters and convert them info lower case and assign a username to every account obj.
 export let currentLoginAcc=null;
+
 accounts.forEach(acc => {
    acc.user= acc.owner.split(" ").map(element=>element[0]).join('').toLowerCase();
 })
 
+accounts.forEach(acc=>{
+    acc.totalAmount=acc.movements.filter(amount=>amount>0).reduce((acu,cur)=>{cur+acu},0)
+});
 
 export const setCurrentAcc = (acc) => {
   localStorage.setItem("currentUser", JSON.stringify(acc));
@@ -92,4 +96,23 @@ export const loadAccounts = () => {
     accounts.length = 0;
     data.forEach(acc => accounts.push(acc));
   }
+};
+export const showToast = (msg, type = "info") => {
+  const colors = {
+    success: "linear-gradient(to right, #4caf50, #2e7d32)",
+    error: "linear-gradient(to right, #f44336, #d32f2f)",
+    info: "linear-gradient(to right, #2196f3, #1976d2)"
+  };
+
+  Toastify({
+    text: msg,
+    duration: 3000,
+    gravity: "bottom",
+    position: "right",
+    close: true,
+    style: {
+      background: colors[type],
+      color: "white"
+    }
+  }).showToast();
 };
