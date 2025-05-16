@@ -142,6 +142,8 @@ const transferFund=function(e){
   else{
     showToast("Transfer failed! Invalid input or insufficient balance.", "error");
   }
+  inputSendAmount.value=" ";
+  inputAccountUsername.value=" ";
 }
 
 const requestLoan=function(e){
@@ -163,6 +165,7 @@ const requestLoan=function(e){
   }else{
     showToast("Loan denied. Check eligibility or unpaid loans.", "error");
   }
+  inputLoanAmount.value=" ";
 }
 
 const blockAccount=function(e){
@@ -177,9 +180,11 @@ e.preventDefault();
     window.location.href="index.html"
   }
     else{
+      
        showToast("Incorrect username or pin.", "error");
     }
-  
+      inputUserBlockAcc.value=" ";
+      inputPinBlockAcc.value=" ";
 }
 
 const payDueAmount=function(e){
@@ -196,6 +201,7 @@ const payDueAmount=function(e){
   else{
     showToast("Repayment failed. Check loan amount or balance.", "error");
   }
+  inputPayLoan.value=" ";
 }
 const logout=function(e){
   e.preventDefault();

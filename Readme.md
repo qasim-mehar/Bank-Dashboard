@@ -1,7 +1,7 @@
-<h1 align="center">💰 Nexus<span style="color:#00bcd4">Bank</span> – A Futuristic Banking Dashboard</h1>
+<h1 align="center">💰 Reverse<span style="color:#00bcd4">GeoCode</span> – A Futuristic Banking Dashboard</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/NexusBank-Dashboard-blueviolet?style=for-the-badge&logo=github">
+  <img src="https://img.shields.io/badge/GeoCode-Card-blueviolet?style=for-the-badge&logo=github">
 </p>
 
 <p align="center">
@@ -14,9 +14,9 @@
 ## 🌠 Preview
 
 <p align="center">
-  <img src="C:\Users\mianq\OneDrive\Desktop\Banking-Dashboard\src\Screenshot 2025-05-13 230449.png" alt="NexusBank Preview">
-  <img src="C:\Users\mianq\OneDrive\Desktop\Banking-Dashboard\src\Screenshot 2025-05-13 230533.png" alt="NexusBank Preview">
-  <img src="C:\Users\mianq\OneDrive\Desktop\Banking-Dashboard\src\Screenshot 2025-05-13 230549.png" alt="NexusBank Preview">
+  <img src="\src\Screenshot 2025-05-16 113507.png" alt="NexusBank Preview">
+  <img src="\src\Screenshot 2025-05-16 113619.png" alt="NexusBank Preview">
+  <img src="\src\Screenshot 2025-05-16 113636.png" alt="NexusBank Preview">
 </p>
 
 ---
@@ -77,6 +77,7 @@ This project helped **reinforce array manipulation**, **DOM interactions**, and 
 📦 NexusBank
 ├── 📁 css/
 │ └── style.css
+└── login.css
 ├
 │── banking.js
 │── Data.js
