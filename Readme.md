@@ -46,6 +46,17 @@ This project helped **reinforce array manipulation**, **DOM interactions**, and 
 
 ---
 
+## Test Credentials
+
+Use the following credentials to log in and test the application:
+
+| Username | PIN   |
+|----------|-------|
+| js       | 1111  |
+| qa       | 2222  |
+| ak       | 3333  |
+| ec       | 4444  |
+
 ## ⚙️ Features
 
 ✨ Beautiful, modern dashboard UI  
